@@ -1,0 +1,4 @@
+search_string: and
+search_file:
+  class: File
+  path: test.txt
