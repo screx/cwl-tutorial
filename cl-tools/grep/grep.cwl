@@ -11,6 +11,7 @@ inputs:
       position: 1
   search_file:
     type: File
+    streamable: true
     inputBinding:
       position: 2
 outputs:
