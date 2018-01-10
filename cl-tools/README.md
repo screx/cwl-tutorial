@@ -37,13 +37,14 @@ inputs:
 
 outputs: []
 ```
-And that's it.
+
+
 
 ## Running
 
 To run the workflow:
 
-  1. Ensure the virtualenv is enabled with cwltools and cwl-runner installed
+  1. Ensure a cwl-implementation is installed and functional on the current environment.
   2. Type the following command into the terminal
       `cwl-runner workflow/basic.cwl basic.yml`
 
