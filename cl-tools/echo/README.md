@@ -65,3 +65,16 @@ TODO: get output of the cwl runner
 ```
 
 OKAY! now we have our first tool wrapped in CWL. The idea behind it is that all necessary tools are wrapped in this formal language description, then can be combined and run in a workflow.
+
+##### Capturing stdout
+
+If instead of printing to stdout we wanted to output to a file we would make the following changes: add the `stdout` field with the `filename` as its value and add it as a formal output
+
+
+```
+stdout: message.txt
+
+outputs:
+  output:
+    type: stdout
+```

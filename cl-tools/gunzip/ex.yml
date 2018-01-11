@@ -1,3 +1,0 @@
-zip_file:
-  class: File
-  path: christmas_carol.txt.gz

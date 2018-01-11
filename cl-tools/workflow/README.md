@@ -119,3 +119,14 @@ zip_file:
   type: File
   class: christmas_carol.txt.gz
 ```
+
+and now to put it all together:
+
+```
+user: $ cwl-runner zipcount.cwl scrooge.yml
+
+...
+
+user: $ cat count.txt
+
+```

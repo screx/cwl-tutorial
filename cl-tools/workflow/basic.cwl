@@ -14,21 +14,23 @@ requirements:
   MultipleInputFeatureRequirement: {}
 
 steps:
-  gzip:
-    run: ../gunzip/gunzip.cwl
+  untar:
+    run: ../tar/tar.cwl
     in:
-      zip_file: zip_file
-    out: [unzipped_file]
+      compress_file: zip_file
+    out: [uncompress_file]
   grep:
     run: ../grep/grep.cwl
     in:
-      search_file: gzip/unzipped_file
+      extended:
+        default: true
+      search_file: untar/uncompress_file
       search_string: search_string
-    out: [results]
+    out: [occurences]
   wc:
     run: ../wc/wc.cwl
     in:
-      input_file: grep/results
+      input_file: grep/occurences
       output_filename: output_filename
     out: [count]
 

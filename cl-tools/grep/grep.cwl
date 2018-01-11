@@ -9,6 +9,7 @@ inputs:
     type: boolean?
     inputBinding:
       position: 1
+      prefix: -e
     label: allows for use of regex in search_string
   search_string:
     type: string
