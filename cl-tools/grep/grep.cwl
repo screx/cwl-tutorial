@@ -2,21 +2,31 @@
 
 cwlVersion: v1.0
 class: CommandLineTool
-baseCommand: egrep
+baseCommand: grep
 stdout: results.txt
 inputs:
+  extended:
+    type: boolean?
+    inputBinding:
+      position: 1
+    label: allows for use of regex in search_string
   search_string:
     type: string
     inputBinding:
-      position: 1
+      position: 2
+    label: the string or expression to search for
   search_file:
     type: File
     streamable: true
     inputBinding:
-      position: 2
+      position: 3
+    label: the file to look occurences of the search_string for.
 outputs:
-  results:
+  occurences:
     type: stdout
+    label: all the occurences of the search_string in the search_file.
+
+
 
     
 
