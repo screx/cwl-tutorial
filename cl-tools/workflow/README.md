@@ -32,7 +32,7 @@ steps:
     run: ../gunzip/gunzip.cwl
     in:
       zipped_file:
-    out: [unzipped_file]
+    out: [uncompress]
   wc:
     run: ../wc/wc.cwl
     in:
