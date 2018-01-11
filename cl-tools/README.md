@@ -7,7 +7,7 @@ A few tools have been wrapped to show basic functionality in CWL. The descriptio
 
 To run the workflow:
 
-  1. Ensure a cwl-implementation is installed and functional on the current environment.
+  1. Ensure a cwl-implementation is installed and functional on the current environment. (here we use the default implementation `cwl-runner`)
   2. Type the following command into the terminal
       `cwl-runner workflow/basic.cwl basic.yml`
 
