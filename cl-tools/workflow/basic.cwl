@@ -8,7 +8,7 @@ inputs:
   search_string:
     type: string
   output_filename: 
-    type: string
+    type: string?
 
 requirements:
   MultipleInputFeatureRequirement: {}

@@ -1,17 +1,19 @@
-# grep
+### grep
 
 Now we will wrap the grep command for its basic functionality (more can be done to the wrapper but I leave that as an exercise for you!).
 
 grep -e searches through files for the given regular expressions passed in as arguments
 
-### Basic Usage
+#### Basic Usage
 
 ```bash
-user $ grep "^a.*$" somefile.txt > occurences.txt
+$ grep "^a.*$" somefile.txt > occurences.txt
 #  this is searching somefile.txt for lines that start with a lower case a and outputting the results into a file called occurences.txt
 ``` 
 
 This is slightly different than the first exercise. One of the parameters it takes is a file. In general when a parameter that is a file is run with CWL, it creates a read-only copy of that file in a temporary folder. It also requires some extra fields in the YAML input file.
+
+#### Wrapping
 
 We start again by writing the required fields for a tool description
 

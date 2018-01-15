@@ -12,6 +12,7 @@ user: $ wc -l somefile.txt
 
 ### Wrapping
 
+As usual it starts with the basic requirements
 ```
 #!/usr/bin/ cwl-runner
 
@@ -20,9 +21,14 @@ class:CommandLineTool
 baseCommand: wc
 ```
 
+we will include the `-l` flag here
+
 ```
 arguments: [-l]
 ```
+
+
+`streamable: true` can be used for future workflows
 
 ```
 inputs:
@@ -33,6 +39,8 @@ inputs:
       position: 1
 ```
 
+We include an optional parameter `output_file` that allows us to provide a file name if necessary.
+
 ```
   output_file:
     type: string?
@@ -41,7 +49,10 @@ inputs:
     default: count.txt
 ```
 
+We can use javascript here to include a parameter reference to the string passed in via `output_file`
+
 ```
+requirements: inlineJavascript
 stdout: $(inputs.output_file)
 outputs:
   count:

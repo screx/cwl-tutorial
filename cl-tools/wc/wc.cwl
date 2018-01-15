@@ -16,7 +16,8 @@ inputs:
     inputBinding:
       position: 1
   output_filename:
-    type: string
+    type: string?
+    default: count.txt
 
 outputs:
   count:
