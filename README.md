@@ -1,4 +1,4 @@
-# Common Workflow Language (CWL) Tutorial
+# Common Workflow Language (CWL) Tutorial (WIP)
 
 This tutorial will walk through the basics of CWL to create some basic tool descriptions and workflows.
 
@@ -39,6 +39,22 @@ Install the reference implementation from PyPi
 $pip install cwlref-runner
 ```
 
+### Components (section title WIP)
+There are two main components to the CWL: (1) a CWL file (`.cwl`), and (2) a YAML (`.yml`) file.
+These file types serve two distinct purposes. The CWL file is responsible for describing what is going to run and what inputs the program takes and the YAML file describes the actual input the program will use when run. 
+
+### CWL File Structure
+
+The order to these files don’t matter as it uses a hashmap to construct the runner, but in general it might be a good idea to follow a logical flow to these files so that a person that reads it doesn’t get so confused
+`cwlVersion`: describes the version of cwl being used
+`class`: describes what the program is (e.g. `CommandLineTool`,`Workflow`)
+`baseCommand`: provides the name of the program that will actually run
+`inputs`: declares the inputs of the program
+`outputs`: declares the outputs of the program
+`records`: declares relationships between programs/parameters
+`requirements`: declares special requirements needed by the program such as dependencies 
+`steps`: used for the actual creation of workflows and linking programs together.
+
 ### First Tool
 
 
@@ -57,7 +73,7 @@ We start by writing out some required fields required by CWL for tool descriptio
 #!/usr/bin cwl-runner
 
 cwlVersion:v1.0
-class: CommandLineTool
+class: CommandLineTool #this says that the CWL file describes a command line tool
 baseCommand: echo #this says we are using the echo command
 
 ```
@@ -236,12 +252,15 @@ Now we will wrap the wc tool.
 #### Basic Usage
 
 
+WIP
+
 
 <!-- 
 can we make a continous page tutorial
 
 1. Echo
 2. Grep
+
 3. tar
 4. wc
 5. workflow
