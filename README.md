@@ -8,7 +8,7 @@ This tutorial will walk through the basics of CWL to create some basic tool desc
 
 It can be used to create cleaner solutions that allow for reproducibility in other environments. 
 
-In CWL each tool is 'wrapped' i.e. given a formal description in [JSON](https://json.org) or [YAML](https://yaml.org) format. The wrapping is used to explicitly describe the inputs and outputs of a program and any other requirements that are needed to run a tool. CWL is simply used to describe the command line tool and workflows and in itself is not software. 
+In CWL each tool is 'wrapped' i.e. given a formal description in [JSON](http://json.org) or [YAML](http://yaml.org) format. The wrapping is used to explicitly describe the inputs and outputs of a program and any other requirements that are needed to run a tool. CWL is simply used to describe the command line tool and workflows and in itself is not software. 
 
 Once a tool is wrapped, it can then be executed by a cwl-implementation (e.g. [cwltool](https://github.com/common-workflow-language/cwltool), [toil](https://github.com/BD2KGenomics/toil), [arvados](https://arvados.org)).
 
@@ -203,7 +203,7 @@ inputs:
     label: Allow use of regex.
 ```
 
-In this example we are also taking a File as input. More on the file types used and their uses can be found on [the CWL documentation](https://commonwl.org/user_guide)
+In this example we are also taking a File as input. More on the file types used and their uses can be found on [the CWL documentation](http://commonwl.org/user_guide)
 
 
 ```
