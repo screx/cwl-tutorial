@@ -130,7 +130,3 @@ user: $ cwl-runner zipcount.cwl scrooge.yml
 user: $ cat count.txt
 
 ```
-
-Objective of this section
-
-hmmmm

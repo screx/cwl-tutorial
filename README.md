@@ -1,6 +1,6 @@
 # Common Workflow Language (CWL) Tutorial (WIP)
 
-This tutorial will walk through the basics of CWL to create some basic tool descriptions and workflows.
+This tutorial will walk through the basics of CWL to create some basic tool descriptions and workflows. This was created for The Hospital for Sick Children in Toronto (SickKids)
 
 ## What is CWL?
 
@@ -16,13 +16,16 @@ This formal description of the tool is useful for the sole purpose of reproducib
 
 ## Table of Contents
 
-* [Getting Started](#getting-started)
-* [First Tool](#first-tool)
-* [First Workflow](#firstworkflow)
+* [Setup](#setup)
+* [Components](#components)
+  * [File Structure](#file-structure)
+* [Tool Wrapping](#tool-wrapping)
+* [Workflows](#first-workflow)
 * 
 
 
-### Getting Started
+
+## Getting Started
 ---
 To follow this tutorial you will need a UNIX system capable of basic command line tools and python
 
@@ -39,13 +42,16 @@ Install the reference implementation from PyPi
 $pip install cwlref-runner
 ```
 
-### Components (section title WIP)
-There are two main components to the CWL: (1) a CWL file (`.cwl`), and (2) a YAML (`.yml`) file.
-These file types serve two distinct purposes. The CWL file is responsible for describing what is going to run and what inputs the program takes and the YAML file describes the actual input the program will use when run. 
+## Components
 
-### CWL File Structure
+There are two main components to using CWL: (1) a CWL file (`.cwl`), and (2) a YAML (`.yml`) file.
+These file types serve two distinct purposes. The CWL file is responsible for describing what is going to run and what inputs the program takes and the YAML file holds the values that the workflow will be executed with.
+
+### File Structure
+
 
 The order to these files don’t matter as it uses a hashmap to construct the runner, but in general it might be a good idea to follow a logical flow to these files so that a person that reads it doesn’t get so confused
+
 `cwlVersion`: describes the version of cwl being used
 `class`: describes what the program is (e.g. `CommandLineTool`,`Workflow`)
 `baseCommand`: provides the name of the program that will actually run
@@ -55,7 +61,9 @@ The order to these files don’t matter as it uses a hashmap to construct the ru
 `requirements`: declares special requirements needed by the program such as dependencies 
 `steps`: used for the actual creation of workflows and linking programs together.
 
-### First Tool
+
+
+## Tool Wrapping
 
 
 First we will show how to wrap a basic command line tool, `echo`. echo writes arguments to stdout.
@@ -68,6 +76,23 @@ test
 
 In this case wrapping echo can be as easy as describing its inputs and outputs, here we will just cover the basic use of echo, writing to stdout.
 
+```
+#!/usr/bin/ cwl-runner
+
+cwlVersion: v1.0
+class: CommandLineTool
+baseCommand: echo
+
+inputs:
+  message:
+    type: string
+    inputBinding:
+        position: 1
+    label: message to print to stdout
+
+outputs: []
+```
+
 We start by writing out some required fields required by CWL for tool descriptions
 ```
 #!/usr/bin cwl-runner
@@ -78,7 +103,7 @@ baseCommand: echo #this says we are using the echo command
 
 ```
 
-Now we want to cover the inputs and outputs. For echo, it says that it writes out arguments to stdout and can take in any number of arguments and use environment variables but now we will just focus on taking one. In CWL, that looks like this:
+Now we want to cover the inputs and outputs. For this usage of echo, it takes in a parameter and writes that to stdout.
 
 ```
 inputs:
@@ -93,7 +118,7 @@ outputs: [] # here there are no outputs as we are simply printing to stdout
 
 Now the echo command is wrapped and ready for use.
 
-#### YAML files
+### YAML files
 
 Before the tool is run, we need to actually create some inputs to use with the tool.
 
@@ -109,9 +134,9 @@ message: Hello, world!
 ``` 
 
 
-##### Running the tool
+### Running the tool
 
-To actually run the tool we will need a cwl-implementation, for the tutorial we will use the reference implementation cwl-runner.
+Running the tool requires the use of a cwl-implementation, for the tutorial we will use the reference implementation cwl-runner.
 
 ```
 $ cwl-runner echo.cwl helloworld.yml
@@ -126,146 +151,17 @@ Final process status is success
 
 OKAY! now we have our first tool wrapped in CWL. The idea behind it is that all necessary tools are wrapped in this formal language description, then can be combined and run in a workflow.
 
-##### Capturing stdout
+### More Tool Wrapping
 
-If instead of printing to stdout we wanted to output to a file we would make the following changes: add the `stdout` field with the `filename` as its value and add it as a formal output with `type: stdout`.
+Before we get to workflows lets touch on some more basic concepts that are used in CWL, and wrap tools that can then be used together in a workflow
 
+### GREP
+### WC
+### TAR
 
-```
-stdout: output.txt
+## Workflows
 
-outputs:
-  output:
-    type: stdout
-```
+## Visualization Tools
 
-and we run it similarily to the previous example.
-
-```
-$cwl-runner echo-stdout.cwl message.yml
-
-Resolved 'echo-stdout.cwl' to 'file:///home/cody/cwl-tutorial/cl-tools/echo/echo-stdout.cwl'
-[job echo-stdout.cwl] /tmp/tmpLT_FSD$ echo \
-    'Hello, World' > /tmp/tmpLT_FSD/output.txt
-[job echo-stdout.cwl] completed success
-{
-    "output": {
-        "checksum": "sha1$4ab299c8ad6ed14f31923dd94f8b5f5cb89dfb54", 
-        "basename": "output.txt", 
-        "location": "file:///home/cody/cwl-tutorial/cl-tools/echo/output.txt", 
-        "path": "/home/cody/cwl-tutorial/cl-tools/echo/output.txt", 
-        "class": "File", 
-        "size": 13
-    }
-}
-Final process status is success
-
-$cat output.txt
-Hello, World
-
-```
-
-### grep
-
-Now we will wrap the grep command for its basic functionality (more can be done to the wrapper but I leave that as an exercise for you!).
-
-grep -e searches through files for the given regular expressions passed in as arguments
-
-#### Basic Usage
-
-```bash
-$ grep -e "^a.*$" somefile.txt > occurences.txt
-#  this is searching somefile.txt for lines that start with a lower case a and outputting the results into a file called occurences.txt
-``` 
-
-This is slightly different than the first exercise. One of the parameters it takes is a file. In general when a parameter that is a file is run with CWL, it creates a read-only copy of that file in a temporary folder. It also requires some extra fields in the YAML input file.
-
-We start again by writing the required fields for a tool description
-
-```
-#!/usr/bin/ cwl-runner
-
-cwlVersion: v1.0
-class: CommandLineTool
-baseCommand: grep
-#baseCommand can take an array of arguments and runs them together-- in this case "grep -e" will be run
-
-```
-
-Now the inputs of the file. inputs can take in multiple types specified in an array. If a type is optional then we can denote this by including a `?` after the type. This is shorthand for [null, `type`]
-
-
-```
-inputs:
-
-  extended:
-    type: boolean? 
-    inputBinding:
-      position: 1
-      prefix: -e
-  search_string:
-    type: string
-    inputBinding:
-      position: 2
-  search_file:
-    type: File
-    inputBinding:
-      position: 3
-```
-
-Here we see we have an optional argument called `extended`. Extended adds the flag -e if the parameter is set to true. This is done using t hIn this case it gives extended capabilities to `search_string` to use regular expressions
-
-We see that in our basic usage that we captured the results of the search from `stdout` into a file called occurences.txt. Here we use a hardcoded name but this can be modified with the use of javascript or parameter references for more dynamic behavior.
-
-We add a `stdout` to the cwl file as a key and the name of the `file` as the value
-
-```
-stdout: occurences.txt
-```
-
-For our outputs, we simply create an output with the type stdout
-
-```
-outputs:
-  occurences:
-    type: stdout
-```
-
-If we know that `grep -e` will always be run it is possible to include it as an argument that is appended to the base command. The argument field takes an array of strings/expressions and appends them after the `baseCommand`
-
-```
-arguments: [-e]
-```
-
-*Alternatively the egrep command can also be run*
-
-
-```
-$cwl-runner grep.cwl search.yml
-
-```
-
-### wc
-
-Now we will wrap the wc tool.
-
-#### Basic Usage
-
-
-WIP
-
-
-<!-- 
-can we make a continous page tutorial
-
-1. Echo
-2. Grep
-
-3. tar
-4. wc
-5. workflow
-6. modifications (adding a step)
-7. customization
-
- -->
+## Cluster
 

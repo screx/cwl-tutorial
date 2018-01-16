@@ -21,14 +21,14 @@ class:CommandLineTool
 baseCommand: wc
 ```
 
-we will include the `-l` flag here
+If we wanted to include the `-l` flag here we can do so by declaring it in `arguments` instead of as a parameter of `inputs`
 
 ```
 arguments: [-l]
 ```
 
 
-`streamable: true` can be used for future workflows
+`streamable: true` can be used to stream the output between tools instead of creating a file then subsequently deleting it to speed things up.
 
 ```
 inputs:
