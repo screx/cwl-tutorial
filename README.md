@@ -26,7 +26,7 @@ This formal description of the tool is useful for the sole purpose of reproducib
 
 
 ## Getting Started
----
+
 To follow this tutorial you will need a UNIX system capable of basic command line tools and python
 
 It is recommended to setup a virtual environment before installing cwltool
