@@ -4,13 +4,13 @@ This tutorial will walk through the basics of CWL to create some basic tool desc
 
 ## What is CWL?
 
-[CWL](commonwl.org) is a tool that allows for easier design and manipulation of tools in a workflow. 
+[CWL](http://commonwl.org) is a tool that allows for easier design and manipulation of tools in a workflow. 
 
 It can be used to create cleaner solutions that allow for reproducibility in other environments. 
 
-In CWL each tool is 'wrapped' i.e. given a formal description in [JSON](json.org) or [YAML](yaml.org) format. The wrapping is used to explicitly describe the inputs and outputs of a program and any other requirements that are needed to run a tool. CWL is simply used to describe the command line tool and workflows and in itself is not software. 
+In CWL each tool is 'wrapped' i.e. given a formal description in [JSON](https://json.org) or [YAML](https://yaml.org) format. The wrapping is used to explicitly describe the inputs and outputs of a program and any other requirements that are needed to run a tool. CWL is simply used to describe the command line tool and workflows and in itself is not software. 
 
-Once a tool is wrapped, it can then be executed by a cwl-implementation (e.g. [cwltool](https://github.com/common-workflow-language/cwltool), [toil](https://github.com/BD2KGenomics/toil), [arvados](arvados.org)).
+Once a tool is wrapped, it can then be executed by a cwl-implementation (e.g. [cwltool](https://github.com/common-workflow-language/cwltool), [toil](https://github.com/BD2KGenomics/toil), [arvados](https://arvados.org)).
 
 This formal description of the tool is useful for the sole purpose of reproducibility and interoperability between systems as it then becomes easier to read how to use the tools, and how it can interact with different ones. 
 
@@ -203,7 +203,7 @@ inputs:
     label: Allow use of regex.
 ```
 
-In this example we are also taking a File as input. More on the file types used and their uses can be found on [the CWL documentation](commonwl.org/user_guide)
+In this example we are also taking a File as input. More on the file types used and their uses can be found on [the CWL documentation](https://commonwl.org/user_guide)
 
 
 ```
