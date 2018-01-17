@@ -8,11 +8,11 @@ This tutorial will walk through the basics of CWL to create some basic tool desc
 
 It can be used to write cleaner workflows that allow quick and easy reproducibility in other environments.
 
-With CWL every componenet is given a formal description in [JSON](http://json.org) or [YAML](http://yaml.org) format. The wrapping is used to explicitly describe the inputs and outputs of a program and any other requirements that are needed to run a tool. CWL is simply used to describe the command line tool and workflows and in itself is not software. 
+With CWL every component is given a formal description in [JSON](http://json.org) or [YAML](http://yaml.org) format. The wrapping is used to explicitly describe the inputs and outputs of a program and any other requirements that are needed to run a tool. CWL is simply used to describe the command line tool and workflows and in itself is not software. 
 
-Once a tool is wrapped, it can then be executed by programs that interpret the workflow descriptions (e.g. [cwltool](https://github.com/common-workflow-language/cwltool), [toil](https://github.com/BD2KGenomics/toil), [arvados](https://arvados.org)).
 
-This formal description of the tool is useful for the sole purpose of reproducibility and interoperability between systems as it then becomes easier to read how to use the tools, and how it can interact with different ones as well as endowing the ability to run the tools.
+This formal description of the tool is useful for the sole purpose of reproducibility and interoperability between systems as it then becomes easier to read how to use the tools, and how it can interact with different ones as well as endowing the ability to run the tools with various programs that have implemented CWL (e.g. [cwltool](https://github.com/common-workflow-language/cwltool), [toil](https://github.com/BD2KGenomics/toil), [arvados](https://arvados.org)).
+.
 
 ## Table of Contents
 
@@ -58,12 +58,19 @@ These file types serve two distinct purposes. The CWL file is responsible for de
 The order to these files don’t matter as it uses a hashmap to construct the runner, but in general it might be a good idea to follow a logical flow to these files so that a person that reads it doesn’t get so confused
 
 `cwlVersion`: describes the version of cwl being used
+
 `class`: describes what the program is (e.g. `CommandLineTool`,`Workflow`)
+
 `baseCommand`: provides the name of the program that will actually run
+
 `inputs`: declares the inputs of the program
+
 `outputs`: declares the outputs of the program
+
 `records`: declares relationships between programs/parameters
+
 `requirements`: declares special requirements needed by the program such as dependencies 
+
 `steps`: used for the actual creation of workflows and linking programs together.
 
 
@@ -520,12 +527,65 @@ zip_file:
 and now to put it all together:
 
 ```
-user: $ cwl-runner zipcount.cwl scrooge.yml
+$ cwl-runner zipcount.cwl scrooge.yml
 
-...
+/cwl-tutorial/venv/bin/cwl-runner 1.0.20180108222053
+Resolved 'workflow/basic.cwl' to 'file:///cwl-tutorial/cl-tools/workflow/basic.cwl'
+[workflow basic.cwl] start
+[step untar] start
+[job untar] /tmp/tmpRS75VX$ tar \
+    -x \
+    -z \
+    -v \
+    -f \
+    /tmp/tmpSRhqkM/stgec99cb52-ab94-42d5-a1bd-114a4bfa6417/christmas_carol.tar.gz
+christmas_carol.txt
+[job untar] completed success
+[step untar] completed success
+[step grep] start
+[job grep] /tmp/tmpLF2H3D$ grep \
+    -e \
+    '^.*Scrooge.*$' \
+    /tmp/tmpMpIDFc/stgbd241a39-6f8e-4d66-89d3-2b64bb73d4b6/christmas_carol.txt > /tmp/tmpLF2H3D/results.txt
+[job grep] completed success
+[step grep] completed success
+[step wc] start
+[job wc] /tmp/tmp7tQILt$ wc \
+    -l \
+    /tmp/tmphg2Tyc/stgbfa55c2f-a82b-41bf-8cde-4e77968f1194/results.txt > /tmp/tmp7tQILt/count.txt
+[job wc] completed success
+[step wc] completed success
+[workflow basic.cwl] completed success
+{
+    "occurences": {
+        "checksum": "sha1$352bf226728076c9c30b108b367a39ac3be6a5b6", 
+        "basename": "count.txt", 
+        "location": "file:///home/cody/cwl-tutorial/cl-tools/count.txt", 
+        "path": "/home/cody/cwl-tutorial/cl-tools/count.txt", 
+        "class": "File", 
+        "size": 71
+    }
+}
+Final process status is success
 
-user: $ cat count.txt
+$ cat count.txt
+359 /tmp/tmphg2Tyc/stgbfa55c2f-a82b-41bf-8cde-4e77968f1194/results.txt
 
+
+```
+
+## Modifying the workflow
+
+Lets look into grep's `man` for some options that we can add to the grep tool description
+
+Here I describe adding the functionality of including the `invert-match` option via the `-v` flag.
+
+```
+inputs:
+  invert_match:
+    type: boolean
+      inputBinding: 2
+      prefix: -v
 ```
 
 
@@ -533,9 +593,10 @@ user: $ cat count.txt
 
 A tool developed by rabix that allows the client to create workflows and tool descriptions in an aesthetically pleasing GUI. It allows the client to visualize these descriptions from their inputs and outputs, to the interactions between the tools and how something can flow from the input of one tool to the output of (several) others.
 
-It offers an easy method of inputting the keys and values that are needed for descriptions along with all the required sections and other more obscure options that may not be talked about in the CWL tutorials. Alternatively it also allows the client to input actual code which is then parsed and converted to a workflow diagram.
+It offers an easier method of setting up the workflow descriptions along by including the required sections and other more obscure options that may not be talked about in the CWL tutorial. Alternatively it also allows the client to input actual code which is then parsed and converted to a workflow diagram.
 
 ![workflows on rabix-composer](asdasd)
+
 ![tool description on rabix-composer](asdasd)
 
 ## Working on the cluster
