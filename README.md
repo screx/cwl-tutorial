@@ -6,26 +6,31 @@ This tutorial will walk through the basics of CWL to create some basic tool desc
 
 [CWL](http://commonwl.org) is a tool that allows for easier design and manipulation of tools in a workflow. 
 
-It can be used to create cleaner solutions that allow for reproducibility in other environments. 
+It can be used to write cleaner workflows that allow quick and easy reproducibility in other environments.
 
-In CWL each tool is 'wrapped' i.e. given a formal description in [JSON](http://json.org) or [YAML](http://yaml.org) format. The wrapping is used to explicitly describe the inputs and outputs of a program and any other requirements that are needed to run a tool. CWL is simply used to describe the command line tool and workflows and in itself is not software. 
+With CWL every componenet is given a formal description in [JSON](http://json.org) or [YAML](http://yaml.org) format. The wrapping is used to explicitly describe the inputs and outputs of a program and any other requirements that are needed to run a tool. CWL is simply used to describe the command line tool and workflows and in itself is not software. 
 
-Once a tool is wrapped, it can then be executed by a cwl-implementation (e.g. [cwltool](https://github.com/common-workflow-language/cwltool), [toil](https://github.com/BD2KGenomics/toil), [arvados](https://arvados.org)).
+Once a tool is wrapped, it can then be executed by programs that interpret the workflow descriptions (e.g. [cwltool](https://github.com/common-workflow-language/cwltool), [toil](https://github.com/BD2KGenomics/toil), [arvados](https://arvados.org)).
 
-This formal description of the tool is useful for the sole purpose of reproducibility and interoperability between systems as it then becomes easier to read how to use the tools, and how it can interact with different ones. 
+This formal description of the tool is useful for the sole purpose of reproducibility and interoperability between systems as it then becomes easier to read how to use the tools, and how it can interact with different ones as well as endowing the ability to run the tools.
 
 ## Table of Contents
 
 * [Setup](#setup)
 * [Components](#components)
   * [File Structure](#file-structure)
+  * [More Tool Wrapping](#more-tool-wrapping)
+    * [grep](#grep)
+    * [wc](#wc)
+    * [tar](#tar)
 * [Tool Wrapping](#tool-wrapping)
 * [Workflows](#first-workflow)
-* 
+* [Visualization Tools](#visualization-tools)
+* [The Cluster](#the-cluster)
 
 
 
-## Getting Started
+## Setup
 
 To follow this tutorial you will need a UNIX system capable of basic command line tools and python
 
@@ -203,7 +208,7 @@ inputs:
     label: Allow use of regex.
 ```
 
-In this example we are also taking a File as input. More on the file types used and their uses can be found on [the CWL documentation](http://commonwl.org/user_guide)
+In this example we are also taking a File as input. More on the input types used and their uses can be found on [the CWL user guide](http://commonwl.org/user_guide)
 
 
 ```
@@ -216,7 +221,8 @@ search_file
 The YML file used for also changes a bit as we have to describe the input as a YAML object.
 
 ```
-search_string: "Hello"
+extended: true
+search_string: Hello, world
 search_file:
   class: File
   path: "Hello_world.txt"
@@ -350,6 +356,50 @@ outputs:
 In this step of the tutorial we will combine the different tools we wrapped to be run together with a single command. We will create a workflow that takes a compressed file, uncompresses it, searches for a desired string, then outputs the number of occurences found in that document into a file named count.txt
 
 We will use the tools gzip, grep, and wc.
+
+```
+#!/usr/bin/ cwl-runner
+
+cwlVersion: v1.0
+class: Workflow
+inputs:
+  zip_file:
+    type: File
+  search_string:
+    type: string
+  output_filename: 
+    type: string?
+
+requirements:
+  MultipleInputFeatureRequirement: {}
+
+steps:
+  untar:
+    run: ../tar/tar.cwl
+    in:
+      compress_file: zip_file
+    out: [uncompress_file]
+  grep:
+    run: ../grep/grep.cwl
+    in:
+      extended:
+        default: true
+      search_file: untar/uncompress_file
+      search_string: search_string
+    out: [occurences]
+  wc:
+    run: ../wc/wc.cwl
+    in:
+      input_file: grep/occurences
+      output_filename: output_filename
+    out: [count]
+
+outputs:
+  occurences:
+    type: File
+    outputSource: [wc/count]
+
+```
 
 As we are creating a workflow, the `class` field must also be set accordingly
 ```
@@ -485,6 +535,11 @@ A tool developed by rabix that allows the client to create workflows and tool de
 
 It offers an easy method of inputting the keys and values that are needed for descriptions along with all the required sections and other more obscure options that may not be talked about in the CWL tutorials. Alternatively it also allows the client to input actual code which is then parsed and converted to a workflow diagram.
 
+![workflows on rabix-composer](asdasd)
+![tool description on rabix-composer](asdasd)
 
-## Cluster
+## Working on the cluster
 
+For the cluster we will instead use a toil-cwl to execute the workflow descriptions. Toil is a program that ...
+
+(WIP)
