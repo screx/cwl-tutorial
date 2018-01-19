@@ -1,0 +1,5 @@
+extended: true
+search_string: "^.*hello.*$"
+search_file: 
+  class: File
+  path: hello.txt
