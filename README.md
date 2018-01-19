@@ -593,11 +593,12 @@ inputs:
 
 A tool developed by rabix that allows the client to create workflows and tool descriptions in an aesthetically pleasing GUI. It allows the client to visualize these descriptions from their inputs and outputs, to the interactions between the tools and how something can flow from the input of one tool to the output of (several) others.
 
+![Workflows on rabix-composer](https://i.imgur.com/OW5KKgs.png)
+
 It offers an easier method of setting up the workflow descriptions along by including the required sections and other more obscure options that may not be talked about in the CWL tutorial. Alternatively it also allows the client to input actual code which is then parsed and converted to a workflow diagram.
 
-![workflows on rabix-composer](asdasd)
+![tool description on rabix-composer](https://i.imgur.com/NmylVdq.png)
 
-![tool description on rabix-composer](asdasd)
 
 ## Working on the cluster
 
