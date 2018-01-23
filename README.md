@@ -2,17 +2,7 @@
 
 This tutorial will walk through the basics of CWL to create some basic tool descriptions and workflows. This was created for The Hospital for Sick Children in Toronto (SickKids)
 
-## What is CWL?
 
-[CWL](http://commonwl.org) is a tool that allows for easier design and manipulation of tools in a workflow. 
-
-It can be used to write cleaner workflows that allow quick and easy reproducibility in other environments.
-
-With CWL every component is given a formal description in [JSON](http://json.org) or [YAML](http://yaml.org) format. The wrapping is used to explicitly describe the inputs and outputs of a program and any other requirements that are needed to run a tool. CWL is simply used to describe the command line tool and workflows and in itself is not software. 
-
-
-This formal description of the tool is useful for the sole purpose of reproducibility and interoperability between systems as it then becomes easier to read how to use the tools, and how it can interact with different ones as well as endowing the ability to run the tools with various programs that have implemented CWL (e.g. [cwltool](https://github.com/common-workflow-language/cwltool), [toil](https://github.com/BD2KGenomics/toil), [arvados](https://arvados.org)).
-.
 
 ## Table of Contents
 
@@ -29,6 +19,25 @@ This formal description of the tool is useful for the sole purpose of reproducib
 * [The Cluster](#the-cluster)
 
 
+> Objectives:
+> * Learn what CWL is and how it can be used to help bioinformaticians.
+> * Installing a CWL implementation on your device
+> * Learn the basic components of a CWL description
+
+
+## What is CWL?
+
+[CWL](http://commonwl.org) is a tool that allows for easier design and manipulation of tools in a workflow. 
+
+It can be used to write cleaner workflows that allow quick and easy reproducibility in other environments.
+
+With CWL every component is given a formal description in [JSON](http://json.org) or [YAML](http://yaml.org) format. The wrapping is used to explicitly describe the inputs and outputs of a program and any other requirements that are needed to run a tool. CWL is simply used to describe the command line tool and workflows and in itself is not software. 
+
+
+This formal description of the tool is useful for the sole purpose of reproducibility and interoperability between systems as it then becomes easier to read how to use the tools, and how it can interact with different ones as well as endowing the ability to run the tools with various programs that have implemented CWL (e.g. [cwltool](https://github.com/common-workflow-language/cwltool), [toil](https://github.com/BD2KGenomics/toil), [arvados](https://arvados.org)).
+.
+
+---
 
 ## Setup
 
@@ -72,6 +81,13 @@ The order to these files don’t matter as it uses a hashmap to construct the ru
 `requirements`: declares special requirements needed by the program such as dependencies 
 
 `steps`: used for the actual creation of workflows and linking programs together.
+
+---
+
+> Obectives
+> * Learn to describe a tool in CWL
+> * Use a cwl implementation to execute a tool described in CWL
+> * modify the tool description to capture stdout from echo to a file
 
 
 ## Tool Wrapping
@@ -161,6 +177,15 @@ Final process status is success
 ```
 
 OKAY! now we have our first tool wrapped in CWL. The idea behind it is that all necessary tools are wrapped in this formal language description, then can be combined and run in a workflow.
+
+---
+
+> Objectives:
+> * Create tool descriptions using a few intermediate techniques
+> * Use the tools to create a workflow description
+> * Run the workflow using the cwl implementation
+
+
 
 ### More Tool Wrapping
 
@@ -589,6 +614,13 @@ inputs:
 ```
 
 
+---
+
+> Objectives:
+> * Learn about advanced techniques used in CWL
+> * Learn about peripheral tools that can be used to help you construct workflows
+
+
 ## Visualization Tools
 
 A tool developed by rabix that allows the client to create workflows and tool descriptions in an aesthetically pleasing GUI. It allows the client to visualize these descriptions from their inputs and outputs, to the interactions between the tools and how something can flow from the input of one tool to the output of (several) others.
@@ -598,6 +630,13 @@ A tool developed by rabix that allows the client to create workflows and tool de
 It offers an easier method of setting up the workflow descriptions along by including the required sections and other more obscure options that may not be talked about in the CWL tutorial. Alternatively it also allows the client to input actual code which is then parsed and converted to a workflow diagram.
 
 ![tool description on rabix-composer](https://i.imgur.com/NmylVdq.png)
+
+---
+
+> Objectives: 
+> * Installing toil on your cluster account
+> * Using toil on the cluster to run CWL tools and workflows
+  
 
 
 ## Working on the cluster

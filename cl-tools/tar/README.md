@@ -14,22 +14,12 @@ we will attempt to create a workflow description of this usage of tar. As with t
 ## Wrapping
 
 ```
-# add the shebang
 #!/usr/bin/ cwl-runner
 
 cwlVersion: v1.0
 class: CommandLineTool
 baseCommand: tar
-```
-
-```
 arguments: [-x, -v, -z, -f]
-
-```
-
-as with the other examples the rest should be pretty straightforward.
-
-```
 inputs:
   tarfile:
     type: File
@@ -44,7 +34,13 @@ outputs:
       glob: "*"
 ```
 
-objective of this section
-* output globbing
-* just another tool maybe skip this step and just go straight to workflow.
 
+As with the other examples the rest should be pretty straightforward.Here we see we have a field called glob. This puts any file that matches the pattern from the value and binds it to that particular output object. Since tar automatically generates filenames we can simply use the wildcard pattern to glob for all outputs!
+
+```
+outputs:
+  extractfile:
+    type: File
+    outputBinding:
+      glob: "*"
+```
