@@ -2,6 +2,8 @@
 
 This tutorial will walk through the basics of CWL to create some basic tool descriptions and workflows. This was created for The Hospital for Sick Children in Toronto (SickKids)
 
+> Objectives:
+> By the end of this tutorial you will know hopefully you will be able to learn what CWL is, how it can be used in a bioinformatics pipeline to create cleaner solutions, and create and execute some basic CWL descriptions that will provide a basis for future works.
 
 
 ## Table of Contents
