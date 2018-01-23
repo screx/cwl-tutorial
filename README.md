@@ -18,14 +18,15 @@ This tutorial will walk through the basics of CWL to create some basic tool desc
 * [Visualization Tools](#visualization-tools)
 * [The Cluster](#the-cluster)
 
+---
+
+## What is CWL?
 
 > Objectives:
 > * Learn what CWL is and how it can be used to help bioinformaticians.
 > * Installing a CWL implementation on your device
 > * Learn the basic components of a CWL description
 
-
-## What is CWL?
 
 [CWL](http://commonwl.org) is a tool that allows for easier design and manipulation of tools in a workflow. 
 
@@ -84,14 +85,15 @@ The order to these files don’t matter as it uses a hashmap to construct the ru
 
 ---
 
-> Obectives
-> * Learn to describe a tool in CWL
-> * Use a cwl implementation to execute a tool described in CWL
-> * modify the tool description to capture stdout from echo to a file
+
 
 
 ## Tool Wrapping
 
+> Obectives
+> * Learn to describe a tool in CWL
+> * Use a cwl implementation to execute a tool described in CWL
+> * modify the tool description to capture stdout from echo to a file
 
 First we will show how to wrap a basic command line tool, `echo`. echo writes arguments to stdout.
 
@@ -180,14 +182,15 @@ OKAY! now we have our first tool wrapped in CWL. The idea behind it is that all 
 
 ---
 
+
+
+### More Tool Wrapping
+
 > Objectives:
 > * Create tool descriptions using a few intermediate techniques
 > * Use the tools to create a workflow description
 > * Run the workflow using the cwl implementation
 
-
-
-### More Tool Wrapping
 
 Before we get to workflows lets touch on some more basic concepts that are used in CWL, and wrap tools that can then be used together in a workflow
 
@@ -616,12 +619,14 @@ inputs:
 
 ---
 
+
+
+## Visualization Tools
+
 > Objectives:
 > * Learn about advanced techniques used in CWL
 > * Learn about peripheral tools that can be used to help you construct workflows
 
-
-## Visualization Tools
 
 A tool developed by rabix that allows the client to create workflows and tool descriptions in an aesthetically pleasing GUI. It allows the client to visualize these descriptions from their inputs and outputs, to the interactions between the tools and how something can flow from the input of one tool to the output of (several) others.
 
@@ -633,13 +638,16 @@ It offers an easier method of setting up the workflow descriptions along by incl
 
 ---
 
+
+
+
+## Working on the cluster
+
 > Objectives: 
 > * Installing toil on your cluster account
 > * Using toil on the cluster to run CWL tools and workflows
   
 
-
-## Working on the cluster
 
 For the cluster we will instead use a toil-cwl to execute the workflow descriptions. Toil is a program that ...
 
