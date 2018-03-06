@@ -1,6 +1,6 @@
-region: "20:61200-62200"
+region: "20:50000-350000"
 
-condition: "INFO/AF < 0.01"
+condition: "INFO/AF < 0.05"
 
 input_vcf_file: 
     class: File
