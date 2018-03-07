@@ -1,0 +1,13 @@
+region: "20:50000-350000"
+
+condition: "INFO/AF < 0.05"
+
+input_vcf_file: 
+    class: File
+    path: data/chr20.vcf.gz
+
+input_bam_file: 
+    class: File
+    path: data/HG00154.chrom20.ILLUMINA.bwa.GBR.low_coverage.20101123.bam
+
+output_filename: sorted.bam
