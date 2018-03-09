@@ -15,7 +15,7 @@ inputs:
 
     input_bam:
         type: File
-        secondaryFiles: .csi
+        secondaryFiles: .bai
         inputBinding:
             position: 2
 
