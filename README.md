@@ -1,4 +1,4 @@
-# Common Workflow Language (CWL) Tutorial (WIP)
+# Common Workflow Language (CWL) Tutorial
 
 This tutorial will walk through the basics of CWL to create some basic tool descriptions and workflows. This was created for The Hospital for Sick Children in Toronto (SickKids)
 
