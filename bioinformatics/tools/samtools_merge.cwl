@@ -9,7 +9,8 @@ arguments: ["merge"]
 
 inputs:
     output_bam:
-        type: string
+        type: string?
+        default: merge.bam
         inputBinding:
             position: 2
 
