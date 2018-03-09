@@ -71,8 +71,6 @@ steps:
         in:
             input_bams:
                 source: samtools_view/filtered_bam
-            output_bam:
-                source: output_filename
         out: [merged_bam]
 
     samtools_sort:
